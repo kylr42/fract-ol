@@ -17,34 +17,34 @@ void	ft_close(int code)
 
 int		ft_keypress(int keycode, t_all *all)
 {
-	double tmp;
+	float tmp;
 
-	printf("%d\n", keycode);
+//	printf("%d\n", keycode);
 	if (keycode == 53) // Esc
 		ft_close(keycode);
-	else if (keycode == 123) // <
-	{
-		tmp = fabs(all->settings.re.max - all->settings.re.min);
-		all->settings.re.min -= tmp * 0.05;
-		all->settings.re.max -= tmp * 0.05;
-	}
-	else if (keycode == 124) // >
+	else if (keycode == 123) // >
 	{
 		tmp = fabs(all->settings.re.max - all->settings.re.min);
 		all->settings.re.min += tmp * 0.05;
 		all->settings.re.max += tmp * 0.05;
 	}
-	else if (keycode == 126) // ^
+	else if (keycode == 124) // <
 	{
-		tmp = fabs(all->settings.im.max - all->settings.im.min);
-		all->settings.im.min += tmp * 0.05;
-		all->settings.im.max += tmp * 0.05;
+		tmp = fabs(all->settings.re.max - all->settings.re.min);
+		all->settings.re.min -= tmp * 0.05;
+		all->settings.re.max -= tmp * 0.05;
 	}
-	else if (keycode == 125) // !^
+	else if (keycode == 126) // !^
 	{
 		tmp = fabs(all->settings.im.max - all->settings.im.min);
 		all->settings.im.min -= tmp * 0.05;
 		all->settings.im.max -= tmp * 0.05;
+	}
+	else if (keycode == 125) // ^
+	{
+		tmp = fabs(all->settings.im.max - all->settings.im.min);
+		all->settings.im.min += tmp * 0.05;
+		all->settings.im.max += tmp * 0.05;
 	}
 	mlx_clear_window(all->mlx.mlx, all->mlx.win);
 	ft_draw_fractal(all);

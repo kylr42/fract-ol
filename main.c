@@ -17,7 +17,7 @@ static	void	ft_init_params(t_settings *settings)
 {
 	settings->width = 1000;
 	settings->height = 1000;
-	settings->max_iter = 32;
+	settings->max_iter = 42;
 	settings->re.min = -2.0;
 	settings->re.max = 2.0;
 	settings->im.min = -2.0;

@@ -29,11 +29,11 @@ typedef struct s_mlx
 
 typedef struct s_complex
 {
-	double	c;
-	double	z;
-	double	min;
-	double	max;
-	double	factor;
+	float	c;
+	float	z;
+	float	min;
+	float	max;
+	float	factor;
 }	t_complex;
 
 typedef struct s_settings
