@@ -1,10 +1,10 @@
 #include "fractol.h"
 
-int	get_color(float t)
+int	get_color(double t)
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 
 	r = (int)(t * 100);
 	g = (int)(t * 250);
@@ -17,82 +17,85 @@ void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
 	char	*dst;
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
-int		ft_julia(t_settings *settings, int x, int y)
+int	ft_julia(t_settings *settings, int x, int y)
 {
-	float f;
-	float re2;
-	float im2;
-	int iteration;
+	int		i;
+	double	f;
+	double	re2;
+	double	im2;
 
-	settings->re.c = 4 * ((float )(x - 200) / settings->width - 0.5);
-	settings->im.c = 4 * ((float )(settings->height - y - 200) / (settings->height - 0.5));
+	settings->re.c = 4 * ((x - 200) / settings->width - 0.5);
+	settings->im.c = 4 * ((settings->height - y - 200) / \
+			(settings->height - 0.5));
 	settings->re.z = settings->re.c;
 	settings->im.z = settings->im.c;
-	iteration = 0;
+	i = 0;
 	re2 = settings->re.z * settings->re.z;
 	im2 = settings->im.z * settings->im.z;
 	while (re2 + im2 <= 4
-		   && iteration < settings->max_iter)
+		   && i < settings->max_iter)
 	{
 		f = settings->re.z;
 		settings->re.z = re2 - im2 + settings->re.c;
 		settings->im.z = 2.0 * f * settings->im.z + settings->im.c;
 		re2 = settings->re.z * settings->re.z;
 		im2 = settings->im.z * settings->im.z;
-		iteration++;
+		i++;
 	}
-	return (iteration);
+	return (i);
 }
 
-int		ft_mandelbrot(t_settings *settings)
+int	ft_mandelbrot(t_settings *settings)
 {
-	float f;
-	float re2;
-	float im2;
-	int iteration;
+	int		i;
+	double	f;
+	double	re2;
+	double	im2;
 
-	iteration = 0;
+	i = 0;
 	settings->re.z = settings->re.c;
 	settings->im.z = settings->im.c;
 	re2 = settings->re.z * settings->re.z;
 	im2 = settings->im.z * settings->im.z;
 	while (re2 + im2 <= 4
-		   && iteration < settings->max_iter)
+		   && i < settings->max_iter)
 	{
 		f = settings->re.z;
 		settings->re.z = re2 - im2 + settings->re.c;
 		settings->im.z = 2.0 * f * settings->im.z + settings->im.c;
 		re2 = settings->re.z * settings->re.z;
 		im2 = settings->im.z * settings->im.z;
-		iteration++;
+		i++;
 	}
-	return (iteration);
+	return (i);
 }
 
-void	ft_draw_fractal(t_all *all)
+void	ft_draw_fractal(t_settings *settings, t_mlx *mlx)
 {
 	int		x;
 	int		y;
-	float	t;
+	double	t;
 
 	y = -1;
-	while (++y < all->settings.height)
+	while (++y < settings->height)
 	{
 		x = -1;
-		all->settings.im.c = all->settings.im.max - y * all->settings.im.factor;
-		while (++x < all->settings.width)
+		settings->im.c = settings->im.max - (y + settings->test) * \
+		settings->im.factor;
+		while (++x < settings->width)
 		{
-			all->settings.re.c = all->settings.re.min + x * all->settings.re.factor;
-//			if (all->settings.fractol == 0)
-//				t = (float)ft_julia(&all->settings, x, y);
-//			else if (all->settings.fractol == 1)
-				t = (float)ft_mandelbrot(&all->settings);
-			t /= (float)all->settings.max_iter;
-			my_mlx_pixel_put(&all->mlx, x, y, get_color(t));
+			settings->re.c = settings->re.min + (x + settings->test) * \
+			settings->re.factor;
+			if (settings->fractol == 0)
+				t = (double)ft_julia(settings, x, y);
+			else if (settings->fractol == 1)
+				t = (double)ft_mandelbrot(settings);
+			t /= (double)settings->max_iter;
+			my_mlx_pixel_put(mlx, x, y, get_color(t));
 		}
 	}
-	mlx_put_image_to_window(all->mlx.mlx, all->mlx.win, all->mlx.img, 0, 0);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 }

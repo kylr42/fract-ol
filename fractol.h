@@ -1,10 +1,9 @@
 #ifndef FRACTOL_H
-#define FRACTOL_H
+# define FRACTOL_H
 
-# include <stdio.h>
 # include <math.h>
+# include <stdio.h>
 # include <unistd.h>
-# include <stdlib.h>
 # include "mlx/mlx.h"
 # include "libft/libft.h"
 
@@ -29,11 +28,11 @@ typedef struct s_mlx
 
 typedef struct s_complex
 {
-	float	c;
-	float	z;
-	float	min;
-	float	max;
-	float	factor;
+	double	c;
+	double	z;
+	double	min;
+	double	max;
+	double	factor;
 }	t_complex;
 
 typedef struct s_settings
@@ -43,7 +42,8 @@ typedef struct s_settings
 	int				width;
 	int				height;
 	int				fractol;
-	int 			max_iter;
+	int				max_iter;
+	double			test;
 }	t_settings;
 
 typedef struct s_all
@@ -52,10 +52,9 @@ typedef struct s_all
 	t_settings	settings;
 }	t_all;
 
-
-void	ft_close(int code);
-void	ft_draw_fractal(t_all *all);
+int		ft_close(int code);
 int		ft_keypress(int keycode, t_all *all);
-
+int		ft_keymouse(int key, int x, int y, t_all *all);
+void	ft_draw_fractal(t_settings *settings, t_mlx *mlx);
 
 #endif //FRACTOL_H
