@@ -17,25 +17,25 @@ int	ft_close(int code)
 
 void	ft_motion(int keycode, t_settings *settings, double	tmp)
 {
-	if (keycode == 123)
+	if (keycode == 124)
 	{
 		tmp = fabs(settings->re.max - settings->re.min);
 		settings->re.min += tmp * 0.01;
 		settings->re.max += tmp * 0.01;
 	}
-	else if (keycode == 124)
+	else if (keycode == 123)
 	{
 		tmp = fabs(settings->re.max - settings->re.min);
 		settings->re.min -= tmp * 0.01;
 		settings->re.max -= tmp * 0.01;
 	}
-	else if (keycode == 126)
+	else if (keycode == 125)
 	{
 		tmp = fabs(settings->im.max - settings->im.min);
 		settings->im.min -= tmp * 0.01;
 		settings->im.max -= tmp * 0.01;
 	}
-	else if (keycode == 125)
+	else if (keycode == 126)
 	{
 		tmp = fabs(settings->im.max - settings->im.min);
 		settings->im.min += tmp * 0.01;
@@ -47,17 +47,13 @@ void	ft_zoom_keyboard(int keycode, t_settings *settings)
 {
 	if (keycode == 43)
 	{
-		settings->re.factor += 0.001 / \
-		(fabs(settings->re.max - settings->re.min) * 2);
-		settings->im.factor += 0.001 / \
-		(fabs(settings->re.max - settings->re.min) * 2);
+		settings->re.factor += 0.00013;
+		settings->im.factor += 0.00013;
 	}
 	else if (keycode == 47)
 	{
-		settings->re.factor -= 0.001 / \
-		(fabs(settings->re.max - settings->re.min) * 2);
-		settings->im.factor -= 0.001 / \
-		(fabs(settings->re.max - settings->re.min) * 2);
+		settings->re.factor -= 0.00013;
+		settings->im.factor -= 0.00013;
 	}
 }
 
@@ -80,6 +76,8 @@ int	ft_keypress(int keycode, t_all *all)
 		ft_motion(keycode, &all->settings, 0);
 	else if (keycode == 43 || keycode == 47)
 		ft_zoom_keyboard(keycode, &all->settings);
+	else if (keycode == 15)
+		ft_init_params(&all->settings);
 	mlx_clear_window(all->mlx.mlx, all->mlx.win);
 	ft_draw_fractal(&all->settings, &all->mlx);
 	return (0);

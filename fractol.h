@@ -21,9 +21,9 @@ typedef struct s_mlx
 	void	*win;
 	void	*img;
 	char	*addr;
+	int		endian;
 	int		bits_per_pixel;
 	int		line_length;
-	int		endian;
 }	t_mlx;
 
 typedef struct s_complex
@@ -43,7 +43,7 @@ typedef struct s_settings
 	int				height;
 	int				fractol;
 	int				max_iter;
-	double			test;
+	double			zoom;
 }	t_settings;
 
 typedef struct s_all
@@ -53,8 +53,12 @@ typedef struct s_all
 }	t_all;
 
 int		ft_close(int code);
+int		get_color(double t);
 int		ft_keypress(int keycode, t_all *all);
 int		ft_keymouse(int key, int x, int y, t_all *all);
+
+void	ft_init_params(t_settings *settings);
 void	ft_draw_fractal(t_settings *settings, t_mlx *mlx);
+void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color);
 
 #endif //FRACTOL_H

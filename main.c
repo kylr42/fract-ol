@@ -26,7 +26,7 @@ static	void	ft_init_window(t_all *all)
 	mlx_hook(all->mlx.win, 17, 0, ft_close, (void *)53);
 }
 
-static	void	ft_init_params(t_settings *settings)
+void	ft_init_params(t_settings *settings)
 {
 	settings->width = 1000;
 	settings->height = 1000;
@@ -37,7 +37,7 @@ static	void	ft_init_params(t_settings *settings)
 	settings->im.max = 2.0;
 	settings->re.factor = 0.004004;
 	settings->im.factor = 0.004004;
-	settings->test = 0;
+	settings->zoom = 0;
 }
 
 int	main(int argc, char *argv[])
