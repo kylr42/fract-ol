@@ -44,6 +44,7 @@ typedef struct s_settings
 	int				fractol;
 	int				max_iter;
 	double			zoom;
+	double			k;
 }	t_settings;
 
 typedef struct s_all

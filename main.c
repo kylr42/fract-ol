@@ -28,16 +28,17 @@ static	void	ft_init_window(t_all *all)
 
 void	ft_init_params(t_settings *settings)
 {
+	settings->k = 0;
+	settings->zoom = 0;
+	settings->im.max = 2.0;
+	settings->re.max = 2.0;
 	settings->width = 1000;
 	settings->height = 1000;
 	settings->max_iter = 92;
 	settings->re.min = -2.0;
-	settings->re.max = 2.0;
 	settings->im.min = -2.0;
-	settings->im.max = 2.0;
 	settings->re.factor = 0.004004;
 	settings->im.factor = 0.004004;
-	settings->zoom = 0;
 }
 
 int	main(int argc, char *argv[])

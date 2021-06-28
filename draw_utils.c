@@ -9,7 +9,7 @@ int	get_color(double t)
 	r = (int)(t * 100);
 	g = (int)(t * 250);
 	b = (int)(t * 405);
-	return ((int)t << 24 | r << 16 | g << 8 | b);
+	return (0 | r << 16 | g << 8 | b);
 }
 
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color)

@@ -1,15 +1,12 @@
 #include "fractol.h"
 
-static	int	ft_julia(t_settings *settings, int x, int y)
+static	int	ft_julia(t_settings *settings)
 {
 	int		i;
 	double	f;
 	double	re2;
 	double	im2;
 
-	settings->re.c = 4 * ((x - 200) / settings->width - 0.5);
-	settings->im.c = 4 * ((settings->height - y - 200) / \
-			(settings->height - 0.5));
 	settings->re.z = settings->re.c;
 	settings->im.z = settings->im.c;
 	i = 0;
@@ -19,8 +16,8 @@ static	int	ft_julia(t_settings *settings, int x, int y)
 		   && i < settings->max_iter)
 	{
 		f = settings->re.z;
-		settings->re.z = re2 - im2 + settings->re.c;
-		settings->im.z = 2.0 * f * settings->im.z + settings->im.c;
+		settings->re.z = re2 - im2 + settings->k - 1;
+		settings->im.z = 2.0 * f * settings->im.z + settings->k;
 		re2 = settings->re.z * settings->re.z;
 		im2 = settings->im.z * settings->im.z;
 		i++;
@@ -78,7 +75,6 @@ static	int	ft_mandelbar(t_settings *settings)
 	return (i);
 }
 
-
 void	ft_draw_fractal(t_settings *settings, t_mlx *mlx)
 {
 	int		x;
@@ -95,11 +91,11 @@ void	ft_draw_fractal(t_settings *settings, t_mlx *mlx)
 		{
 			settings->re.c = settings->re.min + (x + settings->zoom) * \
 			settings->re.factor;
-//			if (settings->fractol == 0)
-//				t = (double)ft_julia(settings, x, y);
-//			else if (settings->fractol == 1)
-//				t = (double)ft_mandelbrot(settings);
-//			else if (settings->fractol == 2)
+			if (settings->fractol == 0)
+				t = (double)ft_julia(settings);
+			else if (settings->fractol == 1)
+				t = (double)ft_mandelbrot(settings);
+			else if (settings->fractol == 2)
 				t = (double)ft_mandelbar(settings);
 			t /= (double)settings->max_iter;
 			my_mlx_pixel_put(mlx, x, y, get_color(t));
