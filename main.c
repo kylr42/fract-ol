@@ -6,8 +6,11 @@ static	int	ft_parse(t_all *all, char *arg)
 			ft_strncmp("julia", arg, 100) == 0)
 		all->settings.fractol = 0;
 	else if (ft_strncmp("Mandelbrot", arg, 100) == 0 || \
-			 ft_strncmp("Mandelbrot", arg, 100) == 0)
+			 ft_strncmp("mandelbrot", arg, 100) == 0)
 		all->settings.fractol = 1;
+	else if (ft_strncmp("Mandelbar", arg, 100) == 0 || \
+			 ft_strncmp("mandelbar", arg, 100) == 0)
+		all->settings.fractol = 2;
 	else
 		return (-1);
 	return (0);
@@ -22,7 +25,7 @@ static	void	ft_init_window(t_all *all)
 	all->mlx.addr = mlx_get_data_addr(all->mlx.img, &all->mlx.bits_per_pixel,
 			&all->mlx.line_length, &all->mlx.endian);
 	mlx_hook(all->mlx.win, 4, 0, ft_keymouse, all);
-	mlx_hook(all->mlx.win, 2, 1L <<0, ft_keypress, all);
+	mlx_hook(all->mlx.win, 2, 1L << 0, ft_keypress, all);
 	mlx_hook(all->mlx.win, 17, 0, ft_close, (void *)53);
 }
 

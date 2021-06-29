@@ -4,7 +4,8 @@ int	ft_close(int code)
 {
 	if (code == 0)
 		ft_putstr_fd(RED
-			"ERROR!!!\nEx.: ./fractol [Julia / Mandelbrot]\n"RESET, 1);
+			"ERROR!!!\nEx.: ./fractol [Julia / Mandelbrot / Mandelbar]\n"
+			RESET, 1);
 	else if (code == 1)
 		ft_putstr_fd(RED"ERROR!!!\nNot valid fractal name!\n"RESET, 1);
 	else if (code == 53)
